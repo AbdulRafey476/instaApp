@@ -1,7 +1,7 @@
 /* Space out content a bit */
 body {
   padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2.5rem;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -32,6 +32,7 @@ body {
   position: fixed;
   bottom: 0;
   text-align: center;
+  background-color: white;
 }
 
 /* Customize container */

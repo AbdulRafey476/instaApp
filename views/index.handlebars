@@ -14,7 +14,7 @@
     }
 
     .page-top {
-        margin-top: 85px;
+        margin-top: 50px;
     }
 
     img.zoom {
@@ -47,8 +47,11 @@
     .modal-footer {
         display: none;
     }
+
+    #gallery {
+    }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 offset-2 offset-sm-4 offset-md-4 offset-lg-4">
             <ul class="nav nav-tabs">
@@ -72,6 +75,17 @@
                 <div class="tab-pane fade active show" id="gallery">
                     <!-- Page Content -->
                     <div class="container page-top">
+                        <div class="row">
+                            <div class="col-4 offset-3">
+                                <div class="form-group">
+                                    <input type="date" name="bday" max="3000-12-31" min="1000-01-01"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                                 <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
