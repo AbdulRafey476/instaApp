@@ -26,12 +26,31 @@ const db = firebase.firestore();
 db.collection("users").get().then((querySnapshot) => {
     const usersEmail = [];
     querySnapshot.forEach((doc) => {
-        var storedDate = new Date(doc.data().lastactive.seconds);
+        // var storedDate = new Date(doc.data().lastactive.seconds);
         var nowDate = new Date();
-        var elapsedTime = (nowDate.getTime() - storedDate.getTime());
+        // var elapsedTime = (nowDate.getTime() - storedDate.getTime());
 
-        usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: ${new Date(elapsedTime).toDateString()}</small></li>`)
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+        // usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: ${new Date(elapsedTime).toDateString()}</small></li>`)
+        usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: </small></li>`)
+        // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
     });
     document.getElementById("demo1").innerHTML = usersEmail.join(" ")
 });
+
+let start = new Date('2019-01-01');
+let end = new Date('2019-04-25');
+
+var imagesRef = db.collection("images");
+
+var query = imagesRef.where('addDate', '>', start).where('addDate', '<', end).get().then((querySnapshot) => {
+    querySnapshot.forEach((images) => {
+        images.data().userID.get()
+          .then(user => {
+            console.log(user.data());
+            console.log(images.data());
+        })
+    });
+}).catch((err) => {
+    console.log(err);
+});;
+
