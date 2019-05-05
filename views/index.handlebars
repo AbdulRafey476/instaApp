@@ -52,19 +52,26 @@
         background-color: #000;
         padding: 30px 0 30px 0;
         border-radius: 25px;
-        color: white ;
+        color: white;
+    }
+
+    .hidden {
+        display: none;
     }
 
 </style>
-<div class="container-fluid bg-black">
+<div class="container-fluid bg-black mb-5">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 offset-sm-5 offset-md-5 offset-lg-5 offset-2">
+        <div class="col-lg-6 col-md-6 col-sm-6 offset-sm-4 offset-md-4 offset-lg-4 offset-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#users">Users</a>
+                    <a class="nav-link active" data-toggle="tab" href="#users">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#gallery">Gallery</a>
+                    <a class="nav-link" data-toggle="tab" href="#gallery">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#day">Add Day</a>
                 </li>
             </ul>
         </div>
@@ -72,12 +79,14 @@
     <div class="row">
         <div class="col-12">
             <div id="myTabContent" class="tab-content">
-                <div class="mt-5 tab-pane fade" id="users">
+
+                <div class="mt-5 tab-pane fade active show" id="users">
                     <div>
                         <ul id="demo1"></ul>
                     </div>
                 </div>
-                <div class="tab-pane fade active show" id="gallery">
+
+                <div class="tab-pane fade" id="gallery">
                     <!-- Page Content -->
                     <div class="container page-top">
                         <div class="row">
@@ -94,9 +103,44 @@
                         <div class="row pt-3" id="image_div"></div>
                     </div>
                 </div>
+
+                <div class="mt-5 tab-pane fade" id="day">
+                    <div class="pr-5 pl-5">
+                        <div style="text-align:center">
+                            <div id="successMsg" class="hidden alert alert-success">Successfully added!</div>
+                            <div id="dangerMsg" class="hidden alert alert-danger">Error in Adding!</div>
+                            <div id="dangerMsg2" class="hidden alert alert-danger">Please fill the required value!</div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="textDate" class="col-2 col-form-label">Date:</label>
+                            <div class="col-4">
+                                <input style="color:white;" id="textDate" width="276" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="textValue" class="col-2 col-form-label">Text:</label>
+                            <div class="col-10">
+                                <input style="color:white;" class="form-control" type="text" id="textValue">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2 offset-10">
+                                <button onclick="themeDay()" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
 <script src="/js/firebase.js"></script>
+
+<script>
+    $('#textDate').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+</script>

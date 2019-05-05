@@ -1,27 +1,54 @@
 // Initialize Firebase
 const config = {
-    apiKey: "AIzaSyBJxc8f86A-FR8Cqxskh9ukhkS0ZQ5KdME",
-    authDomain: "instaapp-3bf08.firebaseapp.com",
-    databaseURL: "https://instaapp-3bf08.firebaseio.com",
-    projectId: "instaapp-3bf08",
-    storageBucket: "instaapp-3bf08.appspot.com",
-    messagingSenderId: "404926943114"
+    apiKey: "AIzaSyALhP1ft5xsDjZM_04iS4Ls68DclPrVWpE",
+    authDomain: "fir-project-8d038.firebaseapp.com",
+    databaseURL: "https://fir-project-8d038.firebaseio.com",
+    projectId: "fir-project-8d038",
+    storageBucket: "fir-project-8d038.appspot.com",
+    messagingSenderId: "1012008653647",
+    appId: "1:1012008653647:web:51e8d94bc7a7e727"
 };
 firebase.initializeApp(config);
 
 const db = firebase.firestore();
 
-// db.collection("users").add({
-//     first: "Ada",
-//     last: "Lovelace",
-//     born: 1815
-// })
-// .then(function(docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-// .catch(function(error) {
-//     console.error("Error adding document: ", error);
-// });
+
+const themeDay = () => {
+    let date = document.getElementById("textDate")
+    let text = document.getElementById("textValue")
+
+    if (date.value !== "" && text.value !== "") {
+        db.collection("Theme").add({
+            date: date.value,
+            text: text.value
+        }).then((docRef) => {
+            date.value = ""
+            text.value = ""
+            let successMsg = document.getElementById("successMsg")
+            successMsg.classList.remove("hidden")
+            setTimeout(() => {
+                successMsg.classList.add("hidden")
+            }, 2000);
+            // console.log("Document written with ID: ", docRef.id);
+        }).catch((error) => {
+            let dangerMsg = document.getElementById("dangerMsg")
+            dangerMsg.classList.remove("hidden")
+            setTimeout(() => {
+                dangerMsg.classList.add("hidden")
+            }, 2000);
+            // console.error("Error adding document: ", error);
+        });
+    }
+    else {
+        let dangerMsg = document.getElementById("dangerMsg2")
+        dangerMsg.classList.remove("hidden")
+        setTimeout(() => {
+            dangerMsg.classList.add("hidden")
+        }, 2000);
+    }
+}
+
+
 
 //=====================================================================================================================================================
 //=====================================================================================================================================================
@@ -54,17 +81,17 @@ $(function () {
         let start = new Date(st.format('MMMM D, YYYY'));
         let end = new Date(en.format('MMMM D, YYYY'));
 
-        var imagesRef = db.collection("images");
+        var imagesRef = db.collection("Posts");
         var image_div = document.getElementById("image_div")
 
-        imagesRef.where('addDate', '>', start).where('addDate', '<', end).get().then((querySnapshot) => {
+        imagesRef.where('timestamp', '>', start).where('timestamp', '<', end).get().then((querySnapshot) => {
             var image = []
 
             querySnapshot.forEach((images) => {
                 image.push(`
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a href="${images.data().imageUrl}" class="fancybox" rel="ligthbox">
-                        <img src="${images.data().imageUrl}" class="zoom img-fluid " alt="">
+                    <a href="${images.data().image_url}" class="fancybox" rel="ligthbox">
+                        <img src="${images.data().image_url}" class="zoom img-fluid " alt="">
                     </a>
                 </div>`)
             });
