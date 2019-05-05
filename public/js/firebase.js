@@ -23,6 +23,9 @@ const db = firebase.firestore();
 //     console.error("Error adding document: ", error);
 // });
 
+//=====================================================================================================================================================
+//=====================================================================================================================================================
+
 db.collection("users").get().then((querySnapshot) => {
     const usersEmail = [];
     querySnapshot.forEach((doc) => {
@@ -37,20 +40,77 @@ db.collection("users").get().then((querySnapshot) => {
     document.getElementById("demo1").innerHTML = usersEmail.join(" ")
 });
 
-let start = new Date('2019-01-01');
-let end = new Date('2019-04-25');
+//=====================================================================================================================================================
+//=====================================================================================================================================================
 
-var imagesRef = db.collection("images");
+$(function () {
 
-var query = imagesRef.where('addDate', '>', start).where('addDate', '<', end).get().then((querySnapshot) => {
-    querySnapshot.forEach((images) => {
-        images.data().userID.get()
-          .then(user => {
-            console.log(user.data());
-            console.log(images.data());
-        })
-    });
-}).catch((err) => {
-    console.log(err);
-});;
+    var start = moment().subtract(29, 'days');
+    var end = moment();
 
+    function cb(st, en) {
+        $('#reportrange span').html(st.format('MMMM D, YYYY') + ' - ' + en.format('MMMM D, YYYY'));
+
+        let start = new Date(st.format('MMMM D, YYYY'));
+        let end = new Date(en.format('MMMM D, YYYY'));
+
+        var imagesRef = db.collection("images");
+        var image_div = document.getElementById("image_div")
+
+        imagesRef.where('addDate', '>', start).where('addDate', '<', end).get().then((querySnapshot) => {
+            var image = []
+
+            querySnapshot.forEach((images) => {
+                image.push(`
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                    <a href="${images.data().imageUrl}" class="fancybox" rel="ligthbox">
+                        <img src="${images.data().imageUrl}" class="zoom img-fluid " alt="">
+                    </a>
+                </div>`)
+            });
+
+            return image
+        }).then(result => {
+            image_div.innerHTML = result.join(" ")
+
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function () {
+
+                $(this).addClass('transition');
+            }, function () {
+
+                $(this).removeClass('transition');
+            });
+
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+//=====================================================================================================================================================
+//=====================================================================================================================================================
+
+
+//=====================================================================================================================================================
+//=====================================================================================================================================================
