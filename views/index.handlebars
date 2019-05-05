@@ -48,11 +48,17 @@
         display: none;
     }
 
-    #gallery {}
+    .bg-black {
+        background-color: #000;
+        padding: 30px 0 30px 0;
+        border-radius: 25px;
+        color: white ;
+    }
+
 </style>
-<div class="container-fluid">
+<div class="container-fluid bg-black">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 offset-2 offset-sm-4 offset-md-4 offset-lg-4">
+        <div class="col-lg-6 col-md-6 col-sm-6 offset-sm-5 offset-md-5 offset-lg-5 offset-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#users">Users</a>
@@ -75,17 +81,17 @@
                     <!-- Page Content -->
                     <div class="container page-top">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-lg-5 offset-lg-4 col-sm-5 offset-sm-4 col-md-5 offset-md-4">
                                 <div class="form-group">
                                     <div id="reportrange"
-                                        style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%;color:black !important;border-radius: 50px;">
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="image_div"></div>
+                        <div class="row pt-3" id="image_div"></div>
                     </div>
                 </div>
             </div>

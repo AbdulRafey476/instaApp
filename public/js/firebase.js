@@ -34,7 +34,7 @@ db.collection("users").get().then((querySnapshot) => {
         // var elapsedTime = (nowDate.getTime() - storedDate.getTime());
 
         // usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: ${new Date(elapsedTime).toDateString()}</small></li>`)
-        usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: </small></li>`)
+        usersEmail.push(`<li>${doc.data().email} <small style="color:red;">Last active: ${new Date(doc.data().lastactive.seconds).toLocaleString()}</small></li>`)
         // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
     });
     document.getElementById("demo1").innerHTML = usersEmail.join(" ")
